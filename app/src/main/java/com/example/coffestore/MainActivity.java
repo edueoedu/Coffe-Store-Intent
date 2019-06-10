@@ -2,6 +2,7 @@ package com.example.coffestore;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -96,9 +97,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent sendEmail = new Intent(Intent.ACTION_SEND);
-                sendEmail.setType("*/*");
-                sendEmail.putExtra(Intent.EXTRA_EMAIL,"cafe.do.ifc.concordia@gmail.com");
-                sendEmail.putExtra(Intent.EXTRA_TEXT,"Gostaria de \" + Integer.toString(TlCoffe) + \" cafés, por favor. O valor total será R$ \" + Double.toString(totalCafe) + \".Obrigado!");
+                sendEmail.setData(Uri.parse("cafe.do.ifc.concordia@gmail.com"));
+                sendEmail.setType("text/plain");
+
+                String[] addresses = {"cafe.do.ifc.concordia@gmail.com"};
+
+                sendEmail.putExtra(Intent.EXTRA_EMAIL, addresses);
+                sendEmail.putExtra(Intent.EXTRA_TEXT,"Gostaria de "  + Integer.toString(TlCoffe) + " cafés, por favor. O valor total será R$ " + Double.toString(totalCafe) +  " .Obrigado!");
                 sendEmail.putExtra(Intent.EXTRA_SUBJECT,"Café");
 
                 if(sendEmail.resolveActivity(getPackageManager())   != null){
